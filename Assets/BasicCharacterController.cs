@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class BasicCharacterController : MonoBehaviour
 {
@@ -31,11 +32,22 @@ public class BasicCharacterController : MonoBehaviour
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
         direction = transform.TransformDirection(direction) * speed;
         rb.velocity = new Vector3(direction.x, rb.velocity.y, direction.z);
-        
-        
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         { 
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+        
+        // gliding
+
+        if (Input.GetKey(KeyCode.LeftShift) && !isGrounded)
+        {
+            rb.drag = 5;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            rb.drag = 0;
         }
     }
 

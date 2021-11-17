@@ -36,16 +36,17 @@ public class BasicCharacterController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         { 
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
         }
         
         // gliding
 
-        if (Input.GetKey(KeyCode.LeftShift) && !isGrounded)
+        if (Input.GetButton("Fire1") && !isGrounded)
         {
             rb.drag = 5;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (!Input.GetButton("Fire1") || isGrounded)
         {
             rb.drag = 0;
         }
@@ -59,11 +60,11 @@ public class BasicCharacterController : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    /*private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
             isGrounded = false;
         }
-    }
+    }*/
 }

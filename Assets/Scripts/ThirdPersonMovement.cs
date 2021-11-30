@@ -17,6 +17,7 @@ public class ThirdPersonMovement : MonoBehaviour
     private float turnSmoothVelocity;
     private float directionY;
     private bool groundedPlayer;
+    public float formValue = 1;
 
     // Update is called once per frame
     void Update()

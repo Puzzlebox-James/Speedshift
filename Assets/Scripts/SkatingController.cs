@@ -2,69 +2,58 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 
-public class BasicCharacterController : MonoBehaviour
+public class SkatingController : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float speed;
+    [SerializeField] private float maxSimpleVelocity;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform cam;
 
     private bool isGrounded;
     private float horizontal;
     private float vertical;
-    
-    void Start()
+    private bool jumped;
+
+
+    private void Update()
     {
-        // technically not needed if we set it in the inspector
-        rb = GetComponent<Rigidbody>();
+        horizontal = Input.GetAxisRaw("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            jumped = true;
+        }
+        
     }
 
     void FixedUpdate()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal,0f , vertical).normalized;
 
         // player moves towards direction the camera is facing
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
         direction = transform.TransformDirection(direction) * speed;
-        rb.velocity = new Vector3(direction.x, rb.velocity.y, direction.z);
+        
+        if(!(rb.velocity.magnitude > maxSimpleVelocity))
+            rb.AddForce(new Vector3(direction.x, 0, direction.z), ForceMode.Impulse);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (jumped)
         { 
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
-        }
-        
-        // gliding
-
-        if (Input.GetButton("Fire1") && !isGrounded)
-        {
-            rb.drag = 5;
-        }
-
-        if (!Input.GetButton("Fire1") || isGrounded)
-        {
-            rb.drag = 0;
+            jumped = false;
         }
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
     }
-
-    /*private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = false;
-        }
-    }*/
+    
 }

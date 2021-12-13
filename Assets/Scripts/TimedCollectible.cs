@@ -21,7 +21,7 @@ public class TimedCollectible : Collectible
     private void OnTriggerEnter(Collider other)
     {
         // Theoretically anything can pick up this collectible. Do logic here if we want to check to make only certain things able to pick it up
-        // Also the player has multiple colliders, so make sure to only pickup the thing once
+        // Also the player might have multiple colliders, so make sure to only pickup the thing once
         if (Time.time - lastHit < .1) // MAGIC NUMBER ALERT WEEWOO
             return;
         lastHit = Time.time;

@@ -18,8 +18,8 @@ public class BasicCharacterController : MonoBehaviour
     
     void Start()
     {
+        // technically not needed if we set it in the inspector
         rb = GetComponent<Rigidbody>();
-        
     }
 
     void FixedUpdate()

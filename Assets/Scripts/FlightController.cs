@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Will inherit from a base controller, presumably a monobehavior
-public class FlightController : MonoBehaviour
+public class FlightController : BaseCharacterController
 {
     [SerializeField] private GameObject playerGameObject;
     [SerializeField] private float POWER;
@@ -17,13 +17,11 @@ public class FlightController : MonoBehaviour
     {
         // Player Movement Update Calls
         movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-
-        
     }
 
-    private void FixedUpdate()
+    public override void Move(Vector2 wishMove, bool wishJump)
     {
-        playerGameObject.GetComponent<Rigidbody>().AddForce(movementDirection * Time.deltaTime * POWER, ForceMode.Impulse);
+        playerGameObject.GetComponent<Rigidbody>().AddForce(wishMove * Time.deltaTime * POWER, ForceMode.Impulse);
         
     }
 }

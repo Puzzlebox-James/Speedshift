@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkatingController : MonoBehaviour
+public class SkatingController : BaseCharacterController
 {
     [Header("Scene References")]
     [SerializeField] private Rigidbody rb;
@@ -23,9 +23,6 @@ public class SkatingController : MonoBehaviour
 
 
     private bool isGrounded;
-    private float horizontal;
-    private float vertical;
-    private bool jumped;
 
     private bool skateCRRunning;
     private bool skated;
@@ -35,23 +32,15 @@ public class SkatingController : MonoBehaviour
 
     private void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            jumped = true;
-        }
-
         if (Input.GetButtonDown("Fire1"))
         {
             Skate();
         }
     }
 
-    void FixedUpdate()
+    public override void Move(Vector2 wishMove, bool wishJump)
     {
-        Vector3 direction = new Vector3(horizontal,0f , vertical).normalized;
+        Vector3 direction = new Vector3(wishMove.x,0f , wishMove.y).normalized;
 
         // player moves towards direction the camera is facing
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
@@ -60,11 +49,10 @@ public class SkatingController : MonoBehaviour
         if(!(rb.velocity.magnitude > maxSimpleVelocity))
             rb.AddForce(new Vector3(direction.x, 0, direction.z), ForceMode.Impulse);
 
-        if (jumped)
+        if (wishJump && isGrounded)
         { 
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
-            jumped = false;
         }
 
         if (skated)

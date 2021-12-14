@@ -14,9 +14,7 @@ public class BasicCharacterController : BaseCharacterController
     [SerializeField] private LayerMask groundMask;
 
     private bool isGrounded;
-    private float horizontal;
-    private float vertical;
-    
+
     void Start()
     {
         // technically not needed if we set it in the inspector
@@ -29,7 +27,7 @@ public class BasicCharacterController : BaseCharacterController
         Vector3 groundRayOrigin = transform.position;
         groundRayOrigin.y += 1;
 
-        float rayDistance = 1.0f + Mathf.Min(0.0f, rb.velocity.y * Time.fixedDeltaTime);
+        float rayDistance = 1.1f + Mathf.Min(0.0f, rb.velocity.y * Time.fixedDeltaTime);
         
         if (Physics.Raycast(groundRayOrigin, Vector3.down, rayDistance, groundMask))
         {

@@ -12,6 +12,7 @@ public class FlightController : BaseCharacterController
     private Vector3 forwardForce = Vector3.forward;
     
     private Vector3 movementDirection;
+
     // Update is called once per frame
     void Update()
     {
@@ -22,6 +23,7 @@ public class FlightController : BaseCharacterController
     public override void Move(Vector2 wishMove, bool wishJump)
     {
         playerGameObject.GetComponent<Rigidbody>().AddForce(wishMove * Time.deltaTime * POWER, ForceMode.Impulse);
-        
+
     }
 }
+    

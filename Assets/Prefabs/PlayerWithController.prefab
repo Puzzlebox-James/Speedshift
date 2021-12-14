@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 5628169848331854548}
   - component: {fileID: 8992449668817153930}
   - component: {fileID: 2123679366}
+  - component: {fileID: 5265922412242510507}
   m_Layer: 3
   m_Name: PlayerWithController
   m_TagString: Player
@@ -146,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08566d87553c3e04db6e28f416a9ceff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
 --- !u!114 &2686367022387437419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,3 +248,22 @@ CapsuleCollider:
   m_Height: 5.75
   m_Direction: 0
   m_Center: {x: 0, y: 1.375, z: 0}
+--- !u!95 &5265922412242510507
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5628169848388611163}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7bb6c4f4326a4c548b2cbeb2be17e5d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

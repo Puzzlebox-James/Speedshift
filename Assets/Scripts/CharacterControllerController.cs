@@ -9,6 +9,7 @@ public class CharacterControllerController : MonoBehaviour
     private BasicCharacterController basicCharacterController;
     private FlightController flightController;
     private SkatingController skatingController;
+    [SerializeField] private Rigidbody rb;
     
     private BaseCharacterController activeCharacterController;
 
@@ -35,10 +36,12 @@ public class CharacterControllerController : MonoBehaviour
         if (Input.GetButton("Switch1"))
         {
             activeCharacterController = basicCharacterController;
+            rb.drag = 0;
         }
         if (Input.GetButton("Switch2"))
         {
             activeCharacterController = flightController;
+            rb.drag = 5;
         }
         if (Input.GetButton("Switch3"))
         {

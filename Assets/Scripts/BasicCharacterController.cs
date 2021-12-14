@@ -46,18 +46,5 @@ public class BasicCharacterController : BaseCharacterController
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
-        
-        // gliding
-        // TODO, reimplement this using CharacterControllerController inputs
-        
-        if (Input.GetButton("Fire1") && !isGrounded)
-        {
-            rb.drag = 5;
-        }
-
-        if (!Input.GetButton("Fire1") || isGrounded)
-        {
-            rb.drag = 0;
-        }
     }
 }

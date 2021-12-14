@@ -31,6 +31,19 @@ public class CharacterControllerController : MonoBehaviour
         wishMove.x = Input.GetAxisRaw("Horizontal");
         wishMove.y = Input.GetAxisRaw("Vertical");
         wishJump = Input.GetButtonDown("Jump") || wishJump;
+
+        if (Input.GetButton("Switch1"))
+        {
+            activeCharacterController = basicCharacterController;
+        }
+        if (Input.GetButton("Switch2"))
+        {
+            activeCharacterController = flightController;
+        }
+        if (Input.GetButton("Switch3"))
+        {
+            activeCharacterController = skatingController;
+        }
     }
 
     private void FixedUpdate()

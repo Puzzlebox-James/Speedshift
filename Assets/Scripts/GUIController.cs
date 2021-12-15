@@ -17,6 +17,7 @@ public class GUIController : MonoBehaviour
     void LevelStarted()
     {
         IntroTimer.GetComponent<Animator>().SetTrigger("IntroTimerStarted");
+        IntroTimer.GetComponent<AudioSource>().Play();
     }
 
     void Update()

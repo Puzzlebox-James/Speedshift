@@ -22,6 +22,11 @@ public class CharacterControllerController : MonoBehaviour
     {
         MovementEnabled = true;
     }
+    
+    void DisableMovement()
+    {
+        MovementEnabled = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +38,7 @@ public class CharacterControllerController : MonoBehaviour
         activeCharacterController = basicCharacterController;
 
         ServiceLocator.Instance.GetLevelManager().levelStartedDelegate += EnableMovement;
+        ServiceLocator.Instance.GetLevelManager().levelEndedDelegate += DisableMovement;
     }
 
     // Update is called once per frame

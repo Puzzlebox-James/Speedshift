@@ -18,7 +18,11 @@ public class LevelManager : MonoBehaviour
 
     public OnLevelStarted levelStartedDelegate;
     
-    private bool _levelStarted;
+    public delegate void OnLevelEnded();
+
+    public OnLevelEnded levelEndedDelegate;
+    
+    private bool _levelStarted = false;
     public bool LevelStarted
     {
         get
@@ -38,6 +42,7 @@ public class LevelManager : MonoBehaviour
             if (_levelStarted == true && value == false)
             {
                 _levelStarted = value;
+                levelEndedDelegate?.Invoke();
                 StopCoroutine(updateTimeCoroutine);
             }
         }
@@ -73,8 +78,12 @@ public class LevelManager : MonoBehaviour
     
     void Start()
     {
-        LevelStarted = false;
         LevelTimer = 0.0f;
         StartCoroutine(StartLevel());
+    }
+
+    public void FinishLevel()
+    {
+        LevelStarted = false;
     }
 }

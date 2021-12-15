@@ -13,8 +13,15 @@ public class CharacterControllerController : MonoBehaviour
     
     private BaseCharacterController activeCharacterController;
 
+    private bool MovementEnabled = false;
+
     private Vector2 wishMove;
     private bool wishJump;
+
+    void EnableMovement()
+    {
+        MovementEnabled = true;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +31,8 @@ public class CharacterControllerController : MonoBehaviour
         skatingController = GetComponent<SkatingController>();
         
         activeCharacterController = basicCharacterController;
+
+        ServiceLocator.Instance.GetLevelManager().levelStartedDelegate += EnableMovement;
     }
 
     // Update is called once per frame
@@ -51,7 +60,10 @@ public class CharacterControllerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        activeCharacterController.Move(wishMove, wishJump);
+        if (MovementEnabled)
+        {
+            activeCharacterController.Move(wishMove, wishJump);
+        }
         wishJump = false;
     }
 }
